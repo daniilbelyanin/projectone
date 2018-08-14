@@ -17,11 +17,12 @@ public class WorkWithTXT {
     }
 
     public String textFile2String() throws IOException {
-        FileInputStream fromFile = new FileInputStream(inputFilename);
-        byte[] str = new byte[fromFile.available()];
-        fromFile.read(str);
-        fromFile.close();
-        return new String(str);
+        String str;
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename),
+                "cp1251"))) {
+            str = in.readLine();
+        }
+        return str;
     }
 
     public void string2TextFile(String text) {
