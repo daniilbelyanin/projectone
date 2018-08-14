@@ -1,9 +1,11 @@
+package com.luxoft.projectone;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegExpWorker {
-    private String regexp, text;
-    private StringBuffer processedText = new StringBuffer();
+    private String text;
+    private StringBuilder processedText = new StringBuilder();
     private Pattern pattern;
     private Matcher matcher;
 
@@ -12,7 +14,6 @@ public class RegExpWorker {
     }
 
     public void setRegExp(String regexp) {
-        this.regexp=regexp;
         pattern = Pattern.compile(regexp);
     }
 
