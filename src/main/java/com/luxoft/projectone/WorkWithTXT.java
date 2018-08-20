@@ -24,16 +24,19 @@ public class WorkWithTXT {
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
                 e.printStackTrace();
+                System.exit(1);
             }
         } catch (UnsupportedEncodingException e) {
             System.out.println("Unsupported file encoding! ");
             e.printStackTrace();
+            System.exit(1);
         } catch (FileNotFoundException e) {
             System.out.println("File not found! ");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Input\\output exception!");
             e.printStackTrace();
+            System.exit(1);
         }
         return str;
     }
@@ -48,9 +51,9 @@ public class WorkWithTXT {
 
             toFile.write(contentInBytes);
             toFile.flush();
-            toFile.close();
         } catch (IOException e) {
             System.out.println("Cant create file!");
+            e.printStackTrace();
         }
     }
 

@@ -10,28 +10,61 @@ public class RegExpWorker {
     private Matcher matcher;
 
     public void setText(String text) {
-        this.text=text;
+        this.text = text;
     }
 
-    public void setRegExp(String regexp) {
-        pattern = Pattern.compile(regexp);
+    private void setMatcher() {
+        try {
+            matcher = pattern.matcher(text);
+        } catch (NullPointerException e) {
+            System.out.println("Error while setting matcher!");
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
+    //Задаем регулярное выражение
+    private void setRegExp(String regexp) {
+        try {
+            pattern = Pattern.compile(regexp);
+        } catch (NullPointerException e) {
+            System.out.println("Regular expression is null!");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        setMatcher();
+    }
+
+    //Генерируем строку с обратной последовательностью
     public String writeBackwards() {
+        setMatcher();
         processedText.delete(0, processedText.length());
-        matcher = pattern.matcher(text);
         while (matcher.find()) {
             processedText.insert(0, matcher.group()+" ");
         }
-        return processedText.toString();
+        return processedText.toString().trim();
     }
 
-    public int howMany() {
-        matcher = pattern.matcher(text);
+    private int count() {
         int count=0;
         while (matcher.find()) {
             count++;
         }
         return count;
+    }
+
+    public int howManyWords() {
+        setRegExp("[^0-9,.!;:\\-?\\s]+");
+        return count();
+    }
+
+    public int howManyPM() {
+        setRegExp("[!,;.:\\-?]");
+        return count();
+    }
+
+    public int howManyLetters() {
+        setRegExp("[^0-9,.!;:\\-?\\s]");
+        return count();
     }
 }
