@@ -8,7 +8,7 @@ public class RegExpWorkerTest {
     @Test
     public void testRegExCountWords() {
         RegExpWorker regExpWorker = new RegExpWorker();
-        regExpWorker.setText("two words");
+        regExpWorker.setText("HibernateDataProvider>logException");
         assertEquals(2, regExpWorker.howManyWords());
         regExpWorker.setText("");
         assertEquals(0, regExpWorker.howManyWords());

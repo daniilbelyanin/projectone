@@ -54,17 +54,17 @@ public class RegExpWorker {
     }
 
     public int howManyWords() {
-        setRegExp("[^0-9,.!;:\\-?\\s]+");
+        setRegExp("[^\\p{Punct}\\d\\s]+");
         return count();
     }
 
     public int howManyPM() {
-        setRegExp("[!,;.:\\-?]");
+        setRegExp("\\p{Punct}");
         return count();
     }
 
     public int howManyLetters() {
-        setRegExp("[^0-9,.!;:\\-?\\s]");
+        setRegExp("[^\\p{Punct}\\d\\s]");
         return count();
     }
 }

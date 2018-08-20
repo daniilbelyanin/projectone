@@ -20,7 +20,7 @@ public class WorkWithTXT {
         String str = "";
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename), "cp1251"))) {
             try {
-                str = in.readLine();
+                while (str += in.readLine() != null) ;
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
                 e.printStackTrace();
@@ -38,6 +38,7 @@ public class WorkWithTXT {
             e.printStackTrace();
             System.exit(1);
         }
+        System.out.println(str);
         return str;
     }
 
@@ -53,7 +54,7 @@ public class WorkWithTXT {
             toFile.flush();
         } catch (IOException e) {
             System.out.println("Cant create file!");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
