@@ -8,29 +8,22 @@ public class Launcher {
 
     public void execute() throws IOException {
 
-        //RegExps for word, letter, punctuationMark
         String word = "[^0-9,.!;:-?\\s]+";
         String letter = "[^0-9,.!;:-?\\s]";
         String punctuationMark = "[!,;.:-?]";
         String filename;
 
-        //Creating txt worker
         WorkWithTXT text = new WorkWithTXT();
-        //Creating regexp worker
         RegExpWorker regexpcounter = new RegExpWorker();
-        //Getting filenames through input from keyboard
+
         Scanner readFileName = new Scanner(System.in);
         do {
             System.out.println("Please enter input text filename including extension(example: C:\\folder\\text.txt):");
             filename = readFileName.nextLine();
         } while (!text.ifFileExists(filename));
+
         text.setInputFilename(filename);
-        try {
-            regexpcounter.setText(text.textFile2String());
-        } catch (FileNotFoundException e) {
-            System.out.println("Can't open text file!");
-            System.exit(0);
-        }
+        regexpcounter.setText(text.textFile2String());
         System.out.println("Please enter output text filename including extension(example: C:\\folder\\text2.txt):");
         text.setOutputFilename(readFileName.nextLine());
 

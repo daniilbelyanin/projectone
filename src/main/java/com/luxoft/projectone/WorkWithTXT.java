@@ -16,11 +16,24 @@ public class WorkWithTXT {
         }
     }
 
-    public String textFile2String() throws IOException {
-        String str;
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename),
-                "cp1251"))) {
-            str = in.readLine();
+    public String textFile2String() {
+        String str = "";
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename), "cp1251"))) {
+            try {
+                str = in.readLine();
+            } catch (IOException e) {
+                System.out.println("Input\\output exception!");
+                e.printStackTrace();
+            }
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Unsupported file encoding! ");
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found! ");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Input\\output exception!");
+            e.printStackTrace();
         }
         return str;
     }
