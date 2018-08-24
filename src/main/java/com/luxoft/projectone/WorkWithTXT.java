@@ -17,10 +17,14 @@ public class WorkWithTXT {
     }
 
     public String textFile2String() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
+        String line;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename), "cp1251"))) {
             try {
-                while (str += in.readLine() != null) ;
+                while ((line = in.readLine()) != null) {
+                    str.append(line);
+                }
+                ;
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
                 e.printStackTrace();
@@ -39,7 +43,7 @@ public class WorkWithTXT {
             System.exit(1);
         }
         System.out.println(str);
-        return str;
+        return str.toString();
     }
 
     public void string2TextFile(String text) {
