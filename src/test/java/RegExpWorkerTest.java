@@ -1,6 +1,8 @@
 import com.luxoft.projectone.RegExpWorker;
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 public class RegExpWorkerTest {
@@ -34,4 +36,17 @@ public class RegExpWorkerTest {
         regExpWorker.setText("!");
         assertEquals(1, regExpWorker.howManyPM());
     }
+
+    @Test
+    public void testBackwardsWriting() {
+        RegExpWorker regExpWorker = new RegExpWorker();
+    }
+
+    @Test
+    public void testReadFile() {
+        File file;
+        file = new File(this.getClass().getResource("123.txt").getPath());
+        assertEquals(true, file.exists());
+    }
+
 }
