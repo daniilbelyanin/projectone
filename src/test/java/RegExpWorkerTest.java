@@ -40,13 +40,13 @@ public class RegExpWorkerTest {
     @Test
     public void testBackwardsWriting() {
         RegExpWorker regExpWorker = new RegExpWorker();
+        regExpWorker.setText("one two three");
+        assertEquals("three two one", regExpWorker.writeBackwards());
+        regExpWorker.setText("              one  two     three       ");
+        assertEquals("three two one", regExpWorker.writeBackwards());
+        regExpWorker.setText("one 123 two 321 three 3213321 four");
+        assertEquals("four three two one", regExpWorker.writeBackwards());
+        regExpWorker.setText("one \n\n\n !two.!\n three 123\n 12..four.\n\n\n\n");
+        assertEquals("four three two one", regExpWorker.writeBackwards());
     }
-
-    @Test
-    public void testReadFile() {
-        File file;
-        file = new File(this.getClass().getResource("123.txt").getPath());
-        assertEquals(true, file.exists());
-    }
-
 }

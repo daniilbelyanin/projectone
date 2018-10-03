@@ -37,7 +37,7 @@ public class RegExpWorker {
 
     //Генерируем строку с обратной последовательностью
     public String writeBackwards() {
-        setMatcher();
+        setRegExp("[^\\p{Punct}\\d\\s]+");
         processedText.delete(0, processedText.length());
         while (matcher.find()) {
             processedText.insert(0, matcher.group()+" ");
