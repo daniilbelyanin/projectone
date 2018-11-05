@@ -8,10 +8,16 @@ public class WorkWithTXT {
     private String inputFilename, outputFilename;
 
     public boolean ifFileExists(String path) {
-        if ((new File(path)).isFile()) {
-            return true;
-        } else {
-            System.out.println("File does not exist!");
+        try {
+            if ((new File(path)).isFile()) {
+                return true;
+            } else {
+                System.out.println("File does not exist!");
+                return false;
+            }
+        } catch (NullPointerException e) {
+            System.out.println("File not found!");
+            e.printStackTrace();
             return false;
         }
     }
@@ -22,25 +28,22 @@ public class WorkWithTXT {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename), "cp1251"))) {
             try {
                 while ((line = in.readLine()) != null) {
-                    str.append(line);
+                    str.append(line + "\n");
                 }
-                ;
+                str.delete(str.length() - 1, str.length());
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
                 e.printStackTrace();
-                System.exit(1);
             }
         } catch (UnsupportedEncodingException e) {
             System.out.println("Unsupported file encoding! ");
             e.printStackTrace();
-            System.exit(1);
         } catch (FileNotFoundException e) {
             System.out.println("File not found! ");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Input\\output exception!");
             e.printStackTrace();
-            System.exit(1);
         }
         System.out.println(str);
         return str.toString();
@@ -58,7 +61,7 @@ public class WorkWithTXT {
             toFile.flush();
         } catch (IOException e) {
             System.out.println("Cant create file!");
-            //e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
