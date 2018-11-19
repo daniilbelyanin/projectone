@@ -37,5 +37,11 @@ public class WorkWithTXTTest {
         workwithtxt.string2TextFile(workwithtxt.textFile2String());
         workwithtxt.setInputFilename(this.getClass().getResource("output_test.txt").getPath());
         assertEquals("\n\nTesting newlines!\n   and spaces!", workwithtxt.textFile2String());
+
+        workwithtxt.setInputFilename(this.getClass().getResource("emptyfile.txt").getPath());
+        workwithtxt.setOutputFilename(this.getClass().getResource("output_test.txt").getPath());
+        workwithtxt.string2TextFile(workwithtxt.textFile2String());
+        workwithtxt.setInputFilename(this.getClass().getResource("output_test.txt").getPath());
+        assertEquals("", workwithtxt.textFile2String());
     }
 }

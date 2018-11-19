@@ -30,7 +30,7 @@ public class WorkWithTXT {
                 while ((line = in.readLine()) != null) {
                     str.append(line + "\n");
                 }
-                str.delete(str.length() - 1, str.length());
+                if (str.length() > 0) str.delete(str.length() - 1, str.length());
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
                 e.printStackTrace();
