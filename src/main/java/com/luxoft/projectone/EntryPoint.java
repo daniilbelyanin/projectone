@@ -11,12 +11,15 @@ public class EntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(EntryPoint.class.getName());
 
     public static void main(String[] argv) throws FileNotFoundException {
+        logger.info("App has started");
         Launcher launcher = new Launcher();
+        logger.info("Executing launcher");
         try {
             launcher.execute();
         } catch (IOException e) {
-            logger.error(e.toString());
+            logger.error("", e);
             e.printStackTrace();
         }
+        logger.info("App has ended its work");
     }
 }

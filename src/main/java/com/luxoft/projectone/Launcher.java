@@ -1,12 +1,17 @@
 package com.luxoft.projectone;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Launcher {
 
-    public void execute() throws IOException {
+    private static final Logger logger = LoggerFactory.getLogger(Launcher.class.getName());
 
+    public void execute() throws IOException {
+        logger.info("Launcher has started");
         String filename;
 
         WorkWithTXT txtworker = new WorkWithTXT();
@@ -18,15 +23,20 @@ public class Launcher {
             filename = readFileName.nextLine();
         } while (!txtworker.ifFileExists(filename));
 
+        logger.debug("User entered inputfilename " + filename);
+
         txtworker.setInputFilename(filename);
         regexpcounter.setText(txtworker.textFile2String());
         System.out.println("Please enter output text filename including extension(example: C:\\folder\\text2.txt):");
-        txtworker.setOutputFilename(readFileName.nextLine());
+        filename = readFileName.nextLine();
+        logger.debug("User entered outputfilename " + filename);
+        txtworker.setOutputFilename(filename);
 
         regexpcounter.setText(txtworker.textFile2String());
         System.out.println("Words: " + regexpcounter.howManyWords());
         txtworker.string2TextFile(regexpcounter.writeBackwards());
         System.out.println("Letters: " + regexpcounter.howManyLetters());
         System.out.println("Punctuation marks: " + regexpcounter.howManyPM());
+        logger.info("Launcher has stopped");
     }
 }
