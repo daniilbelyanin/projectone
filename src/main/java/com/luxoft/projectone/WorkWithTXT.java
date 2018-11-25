@@ -1,11 +1,15 @@
 package com.luxoft.projectone;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class WorkWithTXT {
 
     private String inputFilename, outputFilename;
+    private static final Logger logger = LoggerFactory.getLogger(WorkWithTXT.class.getName());
 
     public boolean ifFileExists(String path) {
         try {
@@ -16,6 +20,7 @@ public class WorkWithTXT {
                 return false;
             }
         } catch (NullPointerException e) {
+            logger.error(e.toString());
             System.out.println("File not found!");
             e.printStackTrace();
             return false;
@@ -33,16 +38,20 @@ public class WorkWithTXT {
                 if (str.length() > 0) str.delete(str.length() - 1, str.length());
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
+                logger.error(e.toString());
                 e.printStackTrace();
             }
         } catch (UnsupportedEncodingException e) {
             System.out.println("Unsupported file encoding! ");
+            logger.error(e.toString());
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             System.out.println("File not found! ");
+            logger.error(e.toString());
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Input\\output exception!");
+            logger.error(e.toString());
             e.printStackTrace();
         }
         System.out.println(str);
@@ -61,6 +70,7 @@ public class WorkWithTXT {
             toFile.flush();
         } catch (IOException e) {
             System.out.println("Cant create file!");
+            logger.error(e.toString());
             e.printStackTrace();
         }
     }

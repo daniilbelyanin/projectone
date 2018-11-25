@@ -1,9 +1,13 @@
 package com.luxoft.projectone;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegExpWorker {
+    private static final Logger logger = LoggerFactory.getLogger(Launcher.class.getName());
     private String text;
     private StringBuilder processedText = new StringBuilder();
     private Pattern pattern;
@@ -18,8 +22,8 @@ public class RegExpWorker {
             matcher = pattern.matcher(text);
         } catch (NullPointerException e) {
             System.out.println("Error while setting matcher!");
+            logger.error(e.toString());
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -29,8 +33,8 @@ public class RegExpWorker {
             pattern = Pattern.compile(regexp);
         } catch (NullPointerException e) {
             System.out.println("Regular expression is null!");
+            logger.error(e.toString());
             e.printStackTrace();
-            System.exit(1);
         }
         setMatcher();
     }
