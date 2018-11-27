@@ -45,7 +45,6 @@ public class WorkWithTXT {
             System.out.println("Input\\output exception!");
             e.printStackTrace();
         }
-        System.out.println(str);
         return str.toString();
     }
 
