@@ -11,7 +11,7 @@ public class EntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(EntryPoint.class.getName());
 
-    public static void main(String[] argv) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
         String outputfilename = "none";
         String inputfilename = "none";
 
