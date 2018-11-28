@@ -57,7 +57,6 @@ public class WorkWithTXT {
             logger.error("", e);
             e.printStackTrace();
         }
-        System.out.println(str);
         return str.toString();
     }
 

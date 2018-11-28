@@ -10,16 +10,17 @@ public class Launcher {
 
     private static final Logger logger = LoggerFactory.getLogger(Launcher.class.getName());
 
-    public void execute() throws IOException {
-        logger.info("Launcher has started");
+    public void execute(String inputfilename, String outputfilename) throws IOException {
+
         String filename;
 
         WorkWithTXT txtworker = new WorkWithTXT();
         RegExpWorker regexpcounter = new RegExpWorker();
+        filename = inputfilename;
 
         Scanner readFileName = new Scanner(System.in);
         do {
-            System.out.println("Please enter input text filename including extension(example: C:\\folder\\text.txt):");
+            System.out.println("Current input file: " + inputfilename + ". If you want other file, please enter input text filename including extension(example: C:\\folder\\text.txt):");
             filename = readFileName.nextLine();
         } while (!txtworker.ifFileExists(filename));
 
@@ -27,10 +28,10 @@ public class Launcher {
 
         txtworker.setInputFilename(filename);
         regexpcounter.setText(txtworker.textFile2String());
-        System.out.println("Please enter output text filename including extension(example: C:\\folder\\text2.txt):");
-        filename = readFileName.nextLine();
+        filename = outputfilename;
+        System.out.println("Current output file: " + outputfilename + ". If you want other file, please enter input text filename including extension(example: C:\\folder\\text.txt):");
         logger.debug("User entered outputfilename " + filename);
-        txtworker.setOutputFilename(filename);
+        txtworker.setOutputFilename(readFileName.nextLine());
 
         regexpcounter.setText(txtworker.textFile2String());
         System.out.println("Words: " + regexpcounter.howManyWords());
