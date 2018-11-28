@@ -16,19 +16,20 @@ public class ReadProperties {
     private void loadProperites() {
         InputStream input = null;
         try {
-            input = this.getClass().getResourceAsStream(propertyFile);
+            input = getClass().getClassLoader().getResourceAsStream(propertyFile);
             if (input == null) {
                 System.out.println("Sorry, unable to find " + propertyFile);
-                return;
             }
             prop.load(input);
             input.close();
         } catch (IOException e) {
+            System.out.println("Sorry, unable to find " + propertyFile);
             e.printStackTrace();
         }
     }
 
     public String returnProperty(String requestedProperty) {
+        loadProperites();
         return prop.getProperty(requestedProperty);
     }
 }

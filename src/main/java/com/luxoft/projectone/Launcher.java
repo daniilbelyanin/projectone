@@ -17,7 +17,7 @@ public class Launcher {
         do {
             System.out.println("Please enter input text filename including extension(example: C:\\folder\\text.txt):");
             filename = readFileName.nextLine();
-        } while (!txtworker.ifFileExists(filename));
+        } while (txtworker.ifFileExists(filename) == false || txtworker.checkFileSize(filename) == false);
 
         txtworker.setInputFilename(filename);
         regexpcounter.setText(txtworker.textFile2String());

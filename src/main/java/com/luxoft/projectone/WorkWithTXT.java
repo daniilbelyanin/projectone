@@ -2,24 +2,42 @@ package com.luxoft.projectone;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class WorkWithTXT {
 
     private String inputFilename, outputFilename;
 
     public boolean ifFileExists(String path) {
-        try {
             if ((new File(path)).isFile()) {
                 return true;
             } else {
-                System.out.println("File does not exist!");
+                System.out.println("File not found!");
                 return false;
             }
-        } catch (NullPointerException e) {
-            System.out.println("File not found!");
-            e.printStackTrace();
-            return false;
+    }
+
+    public boolean checkFileSize(String filename) {
+
+        ReadProperties readProperties = new ReadProperties();
+        readProperties.setPropertyFile("settings.properties");
+        boolean check = true;
+
+        if (ifFileExists(filename) == true) {
+            File file = new File(filename);
+            if (file.length() > Integer.parseInt(readProperties.returnProperty("maxInputFilesize"))) {
+                switch (Locale.getDefault().toString()) {
+                    case "en_US":
+                        System.out.println("Input file size is too big!");
+                        break;
+                    case "ru_RU":
+                        System.out.println("Обрабатываемый файл слишком большой!");
+                        break;
+                }
+                check = false;
+            }
         }
+        return check;
     }
 
     public String textFile2String() {
@@ -45,7 +63,6 @@ public class WorkWithTXT {
             System.out.println("Input\\output exception!");
             e.printStackTrace();
         }
-        System.out.println(str);
         return str.toString();
     }
 
