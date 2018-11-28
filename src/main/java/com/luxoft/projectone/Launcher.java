@@ -22,7 +22,7 @@ public class Launcher {
         do {
             System.out.println("Current input file: " + inputfilename + ". If you want other file, please enter input text filename including extension(example: C:\\folder\\text.txt):");
             filename = readFileName.nextLine();
-        } while (!txtworker.ifFileExists(filename));
+        } while (txtworker.ifFileExists(filename) == false || txtworker.checkFileSize(filename) == false);
 
         logger.debug("User entered inputfilename " + filename);
 

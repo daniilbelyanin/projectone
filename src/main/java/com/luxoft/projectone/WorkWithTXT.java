@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class WorkWithTXT {
 
@@ -13,48 +15,58 @@ public class WorkWithTXT {
     public boolean ifFileExists(String path) {
         logger.info("Checking file existance");
         logger.debug("Checking file " + path + " exists");
-        try {
-            if ((new File(path)).isFile()) {
-                return true;
-            } else {
-                System.out.println("File does not exist!");
-                return false;
-            }
-        } catch (NullPointerException e) {
-            logger.error("", e);
+        if ((new File(path)).isFile()) {
+            return true;
+        } else {
             System.out.println("File not found!");
-            e.printStackTrace();
             return false;
         }
     }
 
+    public boolean checkFileSize(String filename) {
+
+        ReadProperties readProperties = new ReadProperties();
+        readProperties.setPropertyFile("settings.properties");
+        boolean check = true;
+
+        if (ifFileExists(filename) == true) {
+            File file = new File(filename);
+            if (file.length() > Integer.parseInt(readProperties.returnProperty("maxInputFilesize"))) {
+                switch (Locale.getDefault().toString()) {
+                    case "en_US":
+                        System.out.println("Input file size is too big!");
+                        break;
+                    case "ru_RU":
+                        System.out.println("Обрабатываемый файл слишком большой!");
+                        break;
+                }
+                check = false;
+            }
+        }
+        return check;
+    }
+
     public String textFile2String() {
-        logger.info("Converting text file to string");
         StringBuilder str = new StringBuilder();
         String line;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFilename), "cp1251"))) {
             try {
                 while ((line = in.readLine()) != null) {
                     str.append(line + "\n");
-                    logger.debug("Adding line " + line + " to stringbuilder");
                 }
                 if (str.length() > 0) str.delete(str.length() - 1, str.length());
             } catch (IOException e) {
                 System.out.println("Input\\output exception!");
-                logger.error("", e);
                 e.printStackTrace();
             }
         } catch (UnsupportedEncodingException e) {
             System.out.println("Unsupported file encoding! ");
-            logger.error("", e);
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             System.out.println("File not found! ");
-            logger.error("", e);
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Input\\output exception!");
-            logger.error("", e);
             e.printStackTrace();
         }
         return str.toString();

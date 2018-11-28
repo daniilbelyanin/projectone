@@ -6,6 +6,7 @@ import org.apache.commons.cli.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Locale;
 
 public class EntryPoint {
 
