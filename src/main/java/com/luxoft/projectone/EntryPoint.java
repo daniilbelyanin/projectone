@@ -16,40 +16,26 @@ public class EntryPoint {
         String outputfilename = "none";
         String inputfilename = "none";
 
-        //console args
-        Options options = new Options();
-        options.addOption("h", "help", false, "shows help");
-        options.addOption("v", "version", false, "shows version");
-        Option inputfile = Option.builder()
-                .longOpt("i")
-                .argName("inputfile")
-                .hasArg()
-                .desc("defines input file (i.e. C:\\Folder\\Input.txt)")
-                .build();
-        Option outputfile = Option.builder()
-                .longOpt("o")
-                .argName("outputfile")
-                .hasArg()
-                .desc("defines output file (i.e. C:\\Folder\\Input.txt)")
-                .build();
-        options.addOption(inputfile);
-        options.addOption(outputfile);
+        //defining cmd args
+        WorkWithArguments arguments = new WorkWithArguments();
+        arguments.setSimpleArgument("h", "help", "shows help");
+        arguments.setSimpleArgument("v", "version", "shows version");
+        arguments.setComplexArgument("i", "inputfile", "defines input file (i.e. C:\\Folder\\Input.txt)");
+        arguments.setComplexArgument("o", "outputfile", "defines output file (i.e. C:\\Folder\\Output.txt)");
+        arguments.setCmdArguments(args);
 
-        HelpFormatter formatter = new HelpFormatter();
-        CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse(options, args);
-
-        if (cmd.getOptions().length == 0) {
+        if (arguments.checkValidArgs() == false) {
             System.out.println("At least one argument must be specified!");
-            formatter.printHelp("args", options);
+            arguments.showHelp();
             System.exit(1);
         }
 
-        if (cmd.hasOption("h")) formatter.printHelp("args", options);
-        //Пока не стал писать отдельную функцию на выдирание версии из манифеста
-        if (cmd.hasOption("v")) System.out.println("Current version: 1.0");
-        if (cmd.hasOption("i") & cmd.getOptionValue("i") != null) inputfilename = cmd.getOptionValue("i");
-        if (cmd.hasOption("o") & cmd.getOptionValue("o") != null) outputfilename = cmd.getOptionValue("o");
+        if (arguments.checkOption("h")) arguments.showHelp();
+        if (arguments.checkOption("v")) System.out.println("Current version: 1.0");
+        if (arguments.checkOption("i") & arguments.returnArgValue("i") != null)
+            inputfilename = arguments.returnArgValue("i");
+        if (arguments.checkOption("o") & arguments.returnArgValue("o") != null)
+            outputfilename = arguments.returnArgValue("o");
 
 
         logger.info("App has started");
