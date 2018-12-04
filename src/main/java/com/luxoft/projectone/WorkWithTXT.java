@@ -44,8 +44,8 @@ public class WorkWithTXT {
                     check = false;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Read property is not a number!");
-                logger.error("Read property is not a number!");
+                System.out.println("Read property value is not a number!");
+                logger.error("Read property value is not a number!");
             }
         }
         return check;
