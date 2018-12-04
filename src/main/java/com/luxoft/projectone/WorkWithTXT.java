@@ -31,16 +31,21 @@ public class WorkWithTXT {
 
         if (ifFileExists(filename) == true) {
             File file = new File(filename);
-            if (file.length() > Integer.parseInt(readProperties.returnProperty("maxInputFilesize"))) {
-                switch (Locale.getDefault().toString()) {
-                    case "en_US":
-                        System.out.println("Input file size is too big!");
-                        break;
-                    case "ru_RU":
-                        System.out.println("Обрабатываемый файл слишком большой!");
-                        break;
+            try {
+                if (file.length() > Integer.parseInt(readProperties.returnProperty("maxInputFilesize"))) {
+                    switch (Locale.getDefault().toString()) {
+                        case "en_US":
+                            System.out.println("Input file size is too big!");
+                            break;
+                        case "ru_RU":
+                            System.out.println("Обрабатываемый файл слишком большой!");
+                            break;
+                    }
+                    check = false;
                 }
-                check = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Read property is not a number!");
+                logger.error("Read property is not a number!");
             }
         }
         return check;
